@@ -37,6 +37,9 @@ bool	JoinCommand::execute(Client &executor, std::vector<std::string> &args) cons
 			break ;
 		}
 
+		if (code == 1)
+			break ;
+
 		if (code == -1) {
 			server->reply(executor, channel->getTopic().size() == 0 ? "RPL_NOTOPIC" : "RPL_TOPIC",
 				channel->getName() + " :" + (channel->getTopic().size() == 0 ? "No topic is set" : channel->getTopic()));
@@ -57,9 +60,3 @@ bool	JoinCommand::execute(Client &executor, std::vector<std::string> &args) cons
 
 	return true;
 }
-
-//:ftirc 353 alvarojeje = #hola :@alvarojeje
-//:ftirc 366 alvarojeje #hola :End of /NAMES list
-
-//:ftirc 353 alvarojeje = #asd :@alvarojeje
-//:ftirc 366 alvarojeje #asd :End of /NAMES list

@@ -13,7 +13,6 @@
 #include "../client/Client.hpp"
 #include "../command/Command.hpp"
 #include "../channel/Channel.hpp"
-#include "../manager/command/CommandManager.hpp"
 
 class Client;
 class Command;
@@ -29,9 +28,8 @@ class Server {
 		std::vector<struct pollfd>			_poll;
 		std::map<int, Client>				_clients;
 		std::map<std::string, std::string>	_replies;
+		std::map<std::string, Command *> 	_commands;
 		t_channels							_channels;
-
-		CommandManager						_commandManager;
 
 		Server(const Server &server);
 		Server &operator=(const Server &server);
@@ -43,7 +41,7 @@ class Server {
 		std::vector<struct pollfd>			&getPoll();
 		std::map<int, Client>				&getClients();
 		std::map<std::string, std::string>	&getReplies();
-		CommandManager						&getCommandManager();
+		std::map<std::string, Command *>	&getCommands();
 		std::map<std::string, Channel *>	&getChannels();
 
 		void						reply(const Client &client, std::string reply, std::string message);
@@ -59,5 +57,6 @@ class Server {
 
 		const std::string	&getPassword() const;
 	private:
+		void	registerCommands();
 		void	registerReplies();
 };

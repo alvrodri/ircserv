@@ -26,10 +26,10 @@ void	Client::executeMessage() {
 	std::string	message = this->_message.substr(0, this->_message.find_first_of(' '));
 
 	Command *command = NULL;
-	command = this->_server->getCommandManager().getCommand(message);
+	command = this->_server->getCommands()[message];
 
 	if (command) {
-		std::cout << "Executing |" << message << "|" << std::endl;
+		//std::cout << "Executing |" << message << "|" << std::endl;
 		command->execute(*this, args);
 	}
 }
@@ -158,6 +158,10 @@ int			Client::joinChannel(std::string name) {
 		channel->setClientMode(this, 'o', true);
 	} else {
 		channel = server->getChannels().find(name)->second;
+	}
+
+	if (std::find(this->getCurrentChannels().begin(), this->getCurrentChannels().end(), channel) != this->getCurrentChannels().end()) {
+		return 1;
 	}
 
 	channel->getClients().push_back(this);

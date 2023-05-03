@@ -60,9 +60,11 @@ bool	PrivMsgCommand::execute(Client &executor, std::vector<std::string> &args) c
 				std::string message = ":" + executor.getNick() + " PRIVMSG " + receiver->getNick() + " " + text;
 				server->sendMessage(*receiver, message);
 			}
+
+			return false;
 		}
 
-		if (recipents[i].at(0) == '#' || recipents[i].at(0) != '&') {
+		if (recipents[i].at(0) == '#' || recipents[i].at(0) == '&') {
 			Channel	*channel = channelExists(server, recipents[i]);
 
 			if (!channel) {

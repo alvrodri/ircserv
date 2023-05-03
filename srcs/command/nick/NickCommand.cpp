@@ -36,11 +36,17 @@ bool	NickCommand::execute(Client &executor, std::vector<std::string> &args) cons
 		}
 	}
 
-	if (!std::regex_match(args[1], std::regex("[a-z][a-zA-z0-9\\-\\[\\]\\\\`\\^\\{\\}]+"))) {
+	if (!std::regex_match(args[1], std::regex("^[a-zA-Z][a-zA-Z0-9-\\[\\]\\\\`^{}]*$"))) {
 		server->reply(executor, "ERR_ERRONEUSNICKNAME", args[1] + " :Erroneus nickname");
 		return false;
 	}
 
+	if (!executor.getNick().empty()) {
+		for (std::map<int, Client>::iterator it = server->getClients().begin(); it != server->getClients().end(); it++) {
+			executor.getServer()->simpleReply(it->second, ":" + executor.getNick() + " NICK " + args[1]);
+		}
+	}
 	executor.setNick(args[1]);
+
 	return true;
 }

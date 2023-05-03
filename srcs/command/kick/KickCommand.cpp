@@ -45,7 +45,7 @@ bool	KickCommand::execute(Client &executor, std::vector<std::string> &args) cons
 	}
 
 	if (!channel->hasClientMode(&executor, 'o')) {
-		server->reply(executor, "ERR_CHANOPRIVSNEEDED", args[2] + " " + channel->getName() + " :They aren't on that channel");
+		server->reply(executor, "ERR_CHANOPRIVSNEEDED", args[2] + " " + channel->getName() + " :You're not channel operator");
 		return true;
 	}
 

@@ -1,13 +1,26 @@
 #include "Server.hpp"
 
+#include "../command/nick/NickCommand.hpp"
+#include "../command/user/UserCommand.hpp"
+#include "../command/pass/PassCommand.hpp"
+#include "../command/join/JoinCommand.hpp"
+#include "../command/privmsg/PrivMsgCommand.hpp"
+#include "../command/notice/NoticeCommand.hpp"
+#include "../command/part/PartCommand.hpp"
+#include "../command/names/NamesCommand.hpp"
+#include "../command/topic/TopicCommand.hpp"
+#include "../command/list/ListCommand.hpp"
+#include "../command/mode/ModeCommand.hpp"
+#include "../command/kick/KickCommand.hpp"
+
 Server::Server() {
 	throw std::runtime_error("Not implemented");
 }
 
-Server::Server(int port, const std::string &password) : _port(port), _password(password), _commandManager() {
+Server::Server(int port, const std::string &password) : _port(port), _password(password) {
 	int	i;
 
-	this->_commandManager.registerCommands();
+	this->registerCommands();
 	this->registerReplies();
 
 	if ((this->_sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
@@ -63,8 +76,8 @@ std::map<std::string, std::string>	&Server::getReplies() {
 	return this->_replies;
 }
 
-CommandManager	&Server::getCommandManager() {
-	return this->_commandManager;
+std::map<std::string, Command *>	&Server::getCommands() {
+	return this->_commands;
 }
 
 void *get_in_addr(struct sockaddr *sa)
@@ -148,7 +161,7 @@ void	Server::reply(const Client &client, std::string reply, std::string message)
 		}
 	}
 	messageToSend += (" " + message + "\r\n");
-	std::cout << "|" << messageToSend << "|" << std::endl;
+	//std::cout << "|" << messageToSend << "|" << std::endl;
 
 	send(client.getPoll().fd, messageToSend.c_str(), messageToSend.size(), 0);
 }
@@ -188,6 +201,26 @@ void	Server::sendMessage(Client &except, Channel &channel, std::string message) 
 		if (except.getNick() != (*channel.getClients()[i]).getNick())
 			this->sendMessage(*channel.getClients()[i], message);
 	}
+}
+
+void	Server::registerCommands() {
+	// Connection commands
+	this->_commands.insert(std::make_pair("PASS", new PassCommand()));
+	this->_commands.insert(std::make_pair("USER", new UserCommand()));
+	this->_commands.insert(std::make_pair("NICK", new NickCommand()));
+
+	// Channel commands
+	this->_commands.insert(std::make_pair("JOIN", new JoinCommand()));
+	this->_commands.insert(std::make_pair("PART", new PartCommand()));
+	this->_commands.insert(std::make_pair("TOPIC", new TopicCommand()));
+	this->_commands.insert(std::make_pair("NAMES", new NamesCommand()));
+	this->_commands.insert(std::make_pair("LIST", new ListCommand()));
+	this->_commands.insert(std::make_pair("MODE", new ModeCommand()));
+	this->_commands.insert(std::make_pair("KICK", new KickCommand()));
+
+	// Sending commands
+	this->_commands.insert(std::make_pair("PRIVMSG", new PrivMsgCommand()));
+	this->_commands.insert(std::make_pair("NOTICE", new NoticeCommand()));
 }
 
 void	Server::registerReplies() {
