@@ -25,7 +25,7 @@ bool	ListCommand::execute(Client &executor, std::vector<std::string> &args) cons
 	server->reply(executor, "RPL_LISTSTART", "Channel :Users  Name");
 	if (args.size() <= 1) {
 		for (Server::t_channels::iterator it = server->getChannels().begin(); it != server->getChannels().end(); it++) {
-			server->reply(executor, "RPL_LIST", it->second->getName() + " :" + it->second->getTopic());
+			server->reply(executor, "RPL_LIST", it->second->getName() + " " + std::to_string(it->second->getClients().size()) + " :" + it->second->getTopic());
 		}
 	} else {
 		std::vector<std::string> channels = split(args[1], ',');
@@ -33,7 +33,7 @@ bool	ListCommand::execute(Client &executor, std::vector<std::string> &args) cons
 			Channel *channel = channelExists(server, *it);
 
 			if (channel) {
-				server->reply(executor, "RPL_LIST", channel->getName() + " :" + channel->getTopic());
+				server->reply(executor, "RPL_LIST", channel->getName() + " " + std::to_string(channel->getClients().size()) + " :" + channel->getTopic());
 			}
 		}
 	}

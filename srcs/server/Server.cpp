@@ -160,6 +160,7 @@ void	Server::reply(const Client &client, std::string reply, std::string message)
 			messageToSend += client.getNick();
 		}
 	}
+	//std::cout << "|" << message << "|" << std::endl;
 	messageToSend += (" " + message + "\r\n");
 	//std::cout << "|" << messageToSend << "|" << std::endl;
 

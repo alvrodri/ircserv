@@ -1,4 +1,4 @@
 *.o
-ft_irc
 **/.DS_Store
 .vscode
+ircserv
