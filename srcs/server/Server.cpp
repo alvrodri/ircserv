@@ -241,6 +241,7 @@ void	Server::registerReplies() {
 	this->_replies.insert(std::make_pair("ERR_NONICKNAMEGIVEN", "431"));
 	this->_replies.insert(std::make_pair("ERR_ERRONEUSNICKNAME", "432"));
 	this->_replies.insert(std::make_pair("ERR_NICKNAMEINUSE", "433"));
+	this->_replies.insert(std::make_pair("ERR_NICKCOLLISION", "436"));
 	this->_replies.insert(std::make_pair("ERR_UMODEUNKNOWNFLAG", "501"));
 	this->_replies.insert(std::make_pair("ERR_USERSDONTMATCH", "502"));
 	this->_replies.insert(std::make_pair("ERR_BADCHANMASK", "476"));

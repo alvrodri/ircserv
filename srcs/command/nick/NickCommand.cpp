@@ -31,7 +31,11 @@ bool	NickCommand::execute(Client &executor, std::vector<std::string> &args) cons
 
 	for (std::map<int, Client>::iterator it = server->getClients().begin(); it != server->getClients().end(); it++) {
 		if ((*it).second.getNick() == args[1]) {
-			server->reply(executor, "ERR_NICKNAMEINUSE", args[1] +  " :Nickname is already in use");
+			if (executor.getRegistered()) {
+				server->reply(executor, "ERR_NICKNAMEINUSE", args[1] +  " :Nickname is already in use");
+			} else {
+				server->reply(executor, "ERR_NICKCOLLISION", args[1] +  " :Nickname collision KILL");
+			}
 			return false;
 		}
 	}
