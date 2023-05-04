@@ -232,6 +232,7 @@ void	Server::registerReplies() {
 
 	this->_replies.insert(std::make_pair("ERR_NEEDMOREPARAMS", "461"));
 	this->_replies.insert(std::make_pair("ERR_CHANOPRIVSNEEDED", "482"));
+	this->_replies.insert(std::make_pair("ERR_PASSWDMISMATCH", "464"));
 	this->_replies.insert(std::make_pair("ERR_NOSUCHNICK", "401"));
 	this->_replies.insert(std::make_pair("ERR_NORECIPIENT", "411"));
 	this->_replies.insert(std::make_pair("ERR_NOTEXTTOSEND", "412"));

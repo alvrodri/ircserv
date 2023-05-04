@@ -28,6 +28,11 @@ bool	PassCommand::execute(Client &executor, std::vector<std::string> &args) cons
 		return false;
 	}
 
+	if (executor.getServer()->getPassword() != args.at(1)) {
+		server->reply(executor, "ERR_PASSWDMISMATCH", ":Invalid password for server");
+		return false;
+	}
+
 	executor.setAuthenticated();
 
 	return true;
