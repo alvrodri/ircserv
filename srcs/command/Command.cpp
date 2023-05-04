@@ -14,7 +14,3 @@ Command	&Command::operator=(const Command &command) {
 	this->_args = command._args;
 	return *this;
 }
-
-bool	Command::execute(Client &executor, std::vector<std::string> &args) const {
-	return false;
-}

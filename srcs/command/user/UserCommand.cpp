@@ -37,7 +37,7 @@ bool	UserCommand::execute(Client &executor, std::vector<std::string> &args) cons
 	executor.setServername(args[3]);
 
 	std::string realName = "";
-	for (int i = 4; i < args.size(); i++) {
+	for (unsigned long i = 4; i < args.size(); i++) {
 		realName += args[i];
 		if (i != args.size() - 1)
 			realName += " ";

@@ -28,7 +28,7 @@ bool	JoinCommand::execute(Client &executor, std::vector<std::string> &args) cons
 	}
 
 	std::vector<std::string>	toJoin = split(args[1], ',');
-	for (int i = 0; i < toJoin.size(); i++) {
+	for (unsigned long i = 0; i < toJoin.size(); i++) {
 		int code = executor.joinChannel(toJoin[i]);
 		Channel	*channel = server->getChannels()[toJoin[i]];
 
@@ -45,7 +45,7 @@ bool	JoinCommand::execute(Client &executor, std::vector<std::string> &args) cons
 				channel->getName() + " :" + (channel->getTopic().size() == 0 ? "No topic is set" : channel->getTopic()));
 			
 			std::string	clients = "";
-			for (int i = 0; i < channel->getClients().size(); i++) {
+			for (unsigned long i = 0; i < channel->getClients().size(); i++) {
 				clients += channel->hasClientMode(channel->getClients()[i], 'o') ? "@" : "";
 				clients += channel->getClients()[i]->getNick();
 				clients += " ";

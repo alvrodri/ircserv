@@ -4,7 +4,7 @@
 Client::Client() {
 }
 
-Client::Client(Server *server, struct pollfd poll): _server(server), _poll(poll), _modes(""), _currentChannels(), _registered(false) {
+Client::Client(Server *server, struct pollfd poll): _server(server), _poll(poll), _modes(""), _registered(false), _currentChannels() {
 }
 
 Client::Client(const Client &client) {
@@ -174,7 +174,7 @@ void	Client::leaveChannel(std::string name) {
 }
 
 void	Client::leaveChannel(std::string name, bool kicked) {
-	for (int i = 0; i < this->_currentChannels.size(); i++) {
+	for (unsigned long i = 0; i < this->_currentChannels.size(); i++) {
 		if (this->_currentChannels[i]->getName() == name) {
 			Channel *channel = this->_currentChannels[i];
 
@@ -197,7 +197,7 @@ void	Client::leaveChannel(std::string name, bool kicked) {
 }
 
 void	Client::leaveChannels() {
-	for (int i = 0; i < this->_currentChannels.size(); i++) {
+	for (unsigned long i = 0; i < this->_currentChannels.size(); i++) {
 		Channel *channel = this->_currentChannels[i];
 
 		this->_server->simpleReply(channel->getClients(), ":" + this->getNick() + " PART " + channel->getName());

@@ -30,7 +30,7 @@ bool	NamesCommand::execute(Client &executor, std::vector<std::string> &args) con
 	}
 
 	std::vector<std::string>	channels = split(args[1], ',');
-	for (int i = 0; i < channels.size(); i++) {
+	for (unsigned long i = 0; i < channels.size(); i++) {
 		Channel	*channel = channelExists(server, channels[i]);
 		
 		if (channel) {
