@@ -29,8 +29,15 @@ bool	NickCommand::execute(Client &executor, std::vector<std::string> &args) cons
 		return false;
 	}
 
+  std::string givenNick = args.at(1);
+  for (std::string::iterator it = givenNick.begin(); it != givenNick.end(); it++)
+    *it = std::tolower(*it);
+
 	for (std::map<int, Client>::iterator it = server->getClients().begin(); it != server->getClients().end(); it++) {
-		if ((*it).second.getNick() == args[1]) {
+		std::string currentNick = (*it).second.getNick();
+		for (std::string::iterator it = currentNick.begin(); it != currentNick.end(); it++)
+		  *it = std::tolower(*it);
+		if (currentNick == givenNick) {
 			if (executor.getRegistered()) {
 				server->reply(executor, "ERR_NICKNAMEINUSE", args[1] +  " :Nickname is already in use");
 			} else {
