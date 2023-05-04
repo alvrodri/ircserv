@@ -4,7 +4,7 @@ SRCS = ./srcs/main.cpp ./srcs/channel/Channel.cpp ./srcs/command/Command.cpp ./s
 OBJS = $(SRCS:.cpp=.o)
 
 CXX = clang++
-CXXFLAGS = -fsanitize=address -g3
+CXXFLAGS = -Wall -Wextra -Werror
 
 $(NAME):        $(OBJS)
 		$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
