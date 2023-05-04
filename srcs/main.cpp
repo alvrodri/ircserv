@@ -7,7 +7,7 @@ int	main(int argc, char **argv) {
 		return 1;
 	}
 
-	if (!isNumber(argv[1])) {
+	if (!isNumber(argv[1]) || std::atoi(argv[1]) == 0) {
 		std::cout << "You must specify a valid port." << std::endl;
 		return 1;
 	}
