@@ -1,5 +1,6 @@
 #include "./server/Server.hpp"
 #include "./utils/Utils.hpp"
+#include <stdexcept>
 
 int	main(int argc, char **argv) {
 	if (argc != 3) {
@@ -17,5 +18,9 @@ int	main(int argc, char **argv) {
         return 1;
     }
 
-	Server	server(std::atoi(argv[1]), argv[2]);
+	try {
+		Server	server(std::atoi(argv[1]), argv[2]);
+	} catch (std::exception const &e) {
+		std::cout << e.what() << std::endl;
+	}
 }
