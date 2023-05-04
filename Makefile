@@ -4,7 +4,7 @@ SRCS = ./srcs/main.cpp ./srcs/channel/Channel.cpp ./srcs/command/Command.cpp ./s
 OBJS = $(SRCS:.cpp=.o)
 
 CXX = clang++
-CXXFLAGS = -Wall -Wextra -Werror
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 $(NAME):        $(OBJS)
 		$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)

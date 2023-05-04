@@ -100,7 +100,7 @@ void	Server::startListening() {
 			exit(1);
 		}
 
-		for (int i = 0; i < this->_poll.size(); i++) {
+		for (unsigned long i = 0; i < this->_poll.size(); i++) {
 			if (this->_poll[i].revents & POLLIN) {
 				if (this->_poll[i].fd == this->_sockfd) {
 					socklen_t	addrlen = sizeof(remoteaddr);
@@ -134,7 +134,7 @@ void	Server::startListening() {
 					}
 					this->_clients[this->_poll[i].fd].setMessage(this->_clients[this->_poll[i].fd].getMessage().append(message));
 
-					int rpos = 0;
+					unsigned long rpos = 0;
 					std::string &command = this->_clients[this->_poll[i].fd].getMessage();
 					while ((rpos = command.find('\r')) != std::string::npos) {
 						std::string	commandToExecute = command.substr(0, rpos);
@@ -168,7 +168,7 @@ void	Server::reply(const Client &client, std::string reply, std::string message)
 }
 
 void	Server::reply(std::vector<Client *> clients, std::string reply, std::string message) {
-	for (int i = 0; i < clients.size(); i++) {
+	for (unsigned long i = 0; i < clients.size(); i++) {
 		this->reply(*clients[i], reply, message);
 	}
 }
@@ -181,7 +181,7 @@ void	Server::simpleReply(const Client &client, std::string message) {
 }
 
 void	Server::simpleReply(std::vector<Client *> clients, std::string message) {
-	for (int i = 0; i < clients.size(); i++) {
+	for (unsigned long i = 0; i < clients.size(); i++) {
 		this->simpleReply(*clients[i], message);
 	}
 }
@@ -192,13 +192,13 @@ void	Server::sendMessage(const Client &client, std::string message) {
 }
 
 void	Server::sendMessage(Channel &channel, std::string message) {
-	for (int i = 0; i < channel.getClients().size(); i++) {
+	for (unsigned long i = 0; i < channel.getClients().size(); i++) {
 		this->sendMessage(*channel.getClients()[i], message);
 	}
 }
 
 void	Server::sendMessage(Client &except, Channel &channel, std::string message) {
-	for (int i = 0; i < channel.getClients().size(); i++) {
+	for (unsigned long i = 0; i < channel.getClients().size(); i++) {
 		if (except.getNick() != (*channel.getClients()[i]).getNick())
 			this->sendMessage(*channel.getClients()[i], message);
 	}
@@ -276,7 +276,7 @@ void	Server::sendNames(Client &client, Channel &channel) {
 	std::string	clients = channel.getClients()[0]->getNick() + (channel.getClients().size() > 1 ? " " : "");
 	
 	if (channel.getClients().size() > 1) {
-		for (int i = 1; i < channel.getClients().size(); i++) {
+		for (unsigned long i = 1; i < channel.getClients().size(); i++) {
 			if (!channel.getClients()[i]->hasMode('i'))
 				clients += channel.getClients()[i]->getNick() + (i == channel.getClients().size() - 1 ? "" : " ");
 		}

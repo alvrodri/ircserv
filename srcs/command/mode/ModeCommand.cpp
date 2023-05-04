@@ -61,7 +61,7 @@ bool	ModeCommand::execute(Client &executor, std::vector<std::string> &args) cons
 
 		if (args.size() > 2) {
 			bool add = false, changed = false;
-			for (int i = 0; i < args[2].size(); i++) {
+			for (unsigned long i = 0; i < args[2].size(); i++) {
 				if (args[2][i] == '+') {
 					add = true;
 					changed = true;
@@ -106,7 +106,7 @@ bool	ModeCommand::execute(Client &executor, std::vector<std::string> &args) cons
 		return true;
 	}
 
-	for (int i = 0; i < args[2].size(); i++) {
+	for (unsigned long i = 0; i < args[2].size(); i++) {
 		if (args[2][i] == '+') {
 			add = true;
 			changed = true;
@@ -130,8 +130,8 @@ bool	ModeCommand::execute(Client &executor, std::vector<std::string> &args) cons
 char	ModeCommand::getUnknownMode(std::string &modes) const {
 	std::string validModes = "+-opsitnbvw";
 
-	for (int i = 0; i < modes.size(); i++) {
-		int j = validModes.find(modes[i]);
+	for (unsigned long i = 0; i < modes.size(); i++) {
+		unsigned long j = validModes.find(modes[i]);
 
 		if (j == validModes.npos) {
 			return modes[i];

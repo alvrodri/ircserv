@@ -42,7 +42,7 @@ bool	PartCommand::execute(Client &executor, std::vector<std::string> &args) cons
 	}
 
 	std::vector<std::string>	toLeave = split(args[1], ',');
-	for (int i = 0; i < toLeave.size(); i++) {
+	for (unsigned long i = 0; i < toLeave.size(); i++) {
 		Channel *channel = channelExists(server, toLeave[i]);
 
 		if (!channel) {

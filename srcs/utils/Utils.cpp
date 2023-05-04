@@ -2,7 +2,7 @@
 #include "./Utils.hpp"
 
 bool isNumber(std::string str) {
-    for (int i = 0; i < str.length(); i++) {
+    for (unsigned long i = 0; i < str.length(); i++) {
         if (!std::isdigit(str[i])) {
             return false;
         }
@@ -11,7 +11,7 @@ bool isNumber(std::string str) {
 }
 
 bool isPrintable(std::string str) {
-    for (int i = 0; i < str.length(); i++) {
+    for (unsigned long i = 0; i < str.length(); i++) {
         if (!std::isprint(str[i])) {
             return false;
         }
@@ -56,7 +56,7 @@ std::vector<std::string> split(std::string &str, char delim) {
 }
 
 Client *clientExists(Server *server, std::string name) {
-	for (int i = 0; i < server->getClients().size(); i++) {
+	for (unsigned long i = 0; i < server->getClients().size(); i++) {
 		if (server->getClients()[i].getNick() == name) {
 			return &server->getClients()[i];
 		}
@@ -65,7 +65,7 @@ Client *clientExists(Server *server, std::string name) {
 }
 
 Channel	*channelExists(Server *server, std::string name) {
-	for (int i = 0; i < server->getClients().size(); i++) {
+	for (unsigned long i = 0; i < server->getClients().size(); i++) {
 		if (server->getChannels().find(name) != server->getChannels().end()) {
 			return server->getChannels().find(name)->second;
 		}
@@ -92,7 +92,7 @@ void	*readFromConsole(void *attr) {
 std::string getCompleteArgument(std::vector<std::string> args, int n) {
     std::string ret = "";
 
-    for (int i = n; i < args.size(); i++) {
+    for (unsigned long i = n; i < args.size(); i++) {
 		ret += args[i];
 		if (i != args.size() - 1)
 			ret += " ";

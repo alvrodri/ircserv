@@ -33,7 +33,7 @@ bool	PrivMsgCommand::execute(Client &executor, std::vector<std::string> &args) c
 	}
 
 	std::string text = "";
-	for (int i = 2; i < args.size(); i++) {
+	for (unsigned long i = 2; i < args.size(); i++) {
 		text += args[i];
 
 		if (args[2][0] != ':')
@@ -44,7 +44,7 @@ bool	PrivMsgCommand::execute(Client &executor, std::vector<std::string> &args) c
 	}
 
 	std::vector<std::string> recipents = split(args[1], ',');
-	for (int i = 0; i < recipents.size(); i++) {
+	for (unsigned long i = 0; i < recipents.size(); i++) {
 		if (std::count(recipents.begin(), recipents.end(), recipents[i]) > 1) {
 			server->reply(executor, "ERR_TOOMANYTARGETS", recipents[i] + " :Duplicate recipients. No message delivered");
 			return true;

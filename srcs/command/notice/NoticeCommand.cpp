@@ -48,7 +48,7 @@ bool	NoticeCommand::execute(Client &executor, std::vector<std::string> &args) co
 	}
 
 	std::string text = "";
-	for (int i = 2; i < args.size(); i++) {
+	for (unsigned long i = 2; i < args.size(); i++) {
 		text += args[i];
 
 		if (args[2][0] != ':')
@@ -59,7 +59,7 @@ bool	NoticeCommand::execute(Client &executor, std::vector<std::string> &args) co
 	}
 
 	std::vector<std::string> recipents = split(args[1], ',');
-	for (int i = 0; i < recipents.size(); i++) {
+	for (unsigned long i = 0; i < recipents.size(); i++) {
 		if (std::count(recipents.begin(), recipents.end(), recipents[i]) > 1) {
 			return true;
 		}
